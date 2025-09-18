@@ -7,7 +7,7 @@ interface ButtonMenuProps {
     gradientColors: {
         one: string,
         two: string
-    }
+    },
 }
 export const ButtonMenu = ({...props}: ButtonMenuProps) => {
     const styles = ButtonMenuStyles

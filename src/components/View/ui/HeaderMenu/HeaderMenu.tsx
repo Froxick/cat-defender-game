@@ -4,10 +4,11 @@ interface HeaderMenuProps {
     title: string,
     subtitle: string,
     titleSize: number,
-    subTitleSize: number
+    subTitleSize: number,
+    marginTop: number
 }
 export const HeaderMenu = ({...props} : HeaderMenuProps) => {
-    const styles = HeaderMenuStyles(props.titleSize,props.subTitleSize)
+    const styles = HeaderMenuStyles(props.titleSize,props.subTitleSize,props.marginTop)
     return(
         <View style={styles.header}>
             <Text style={styles.title}>{props.title}</Text>

@@ -2,10 +2,10 @@ import { COLORS } from "@/src/themes/Colors";
 import { StyleSheet } from "react-native";
 
 export const HeaderMenuStyles  = (titleSize: number,
-subTitleSize: number) => StyleSheet.create({
+subTitleSize: number,marginTop: number) => StyleSheet.create({
     header: {
         alignItems: 'center',
-        marginTop: 50,
+        marginTop: marginTop,
       },
      
       title: {
