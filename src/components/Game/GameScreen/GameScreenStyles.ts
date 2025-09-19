@@ -1,0 +1,29 @@
+import { StyleSheet } from "react-native";
+
+export const GameScreenStyles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    hud: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 16,
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+    },
+    button: {
+        marginTop: 60
+    },
+    status: {
+        position: 'absolute',
+        left: 150,
+        top:  85
+    },
+    game: {
+
+    }
+})

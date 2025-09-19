@@ -32,6 +32,15 @@ export const localization = {
                
             }
 
+        },
+        gameHud: {
+            menu: {
+                title: 'Пауза',
+                buttons: {
+                    exit: 'Выйти',
+                    again: 'Заново'
+                }
+            }
         }
     },
     en: {
@@ -61,11 +70,17 @@ export const localization = {
                         medium: 'For skilled players \naverage enemies',
                         hard: 'For those wtho love hardcore \ndifficult enemies'
                     }
-                },
-                
-                
+                },   
             }
-
+        },
+        gameHud: {
+            menu: {
+                title: 'Paused',
+                buttons: {
+                    exit: 'Exit',
+                    again: 'Again'
+                }
+            }
         }
     }
 }

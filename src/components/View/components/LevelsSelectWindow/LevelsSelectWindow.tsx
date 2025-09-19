@@ -7,14 +7,24 @@ import { useState } from "react"
 import { ButtonMenu } from "../../ui/ButtonMenu/ButtonMenu"
 import { language } from "@/src/localization/context/useLocalizationHookContext"
 import { localization } from "@/src/localization/data/localization"
+import { useRouter } from "expo-router"
 interface LevelsSelectWindowProps {
     language: language
 }
 export const LevelsSelectWindow = ({language} : LevelsSelectWindowProps) => {
     const text = localization[language].homeMenu.menuModal
     const [selectLevel,setSelectLevel] = useState<number>(1)
+    const router = useRouter()
     const selectLevelFnc = (id: number) => {
         setSelectLevel(id)
+    }
+    const startGameNavigate = () => {
+        router.replace({
+            pathname: '/game/game',
+            params: {
+                difficulty: selectLevel.toString()
+            }
+        })
     }
     const styles = LevelsSelectWindowStyles
     const levelsButtons = LevelsSelectData(language)
@@ -52,7 +62,7 @@ export const LevelsSelectWindow = ({language} : LevelsSelectWindowProps) => {
                         two: '#ff758c'
                     }
                 }
-                navigateTo={() => {}}
+                navigateTo={startGameNavigate}
            />
 
         </View>
