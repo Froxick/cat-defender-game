@@ -25,9 +25,7 @@ export const ButtonSelectStyles = StyleSheet.create({
     },
     selectedButton: {
         
-        borderWidth: 2,
-        borderColor: '#00ff1e40',
-        borderRadius: 15,
+        
         opacity: 1
     },
     buttonText: {
@@ -50,7 +48,7 @@ export const ButtonSelectStyles = StyleSheet.create({
     },
     descriptionText: {
         padding: 15,
-        fontSize: 12,
+        fontSize: 14,
         color: "#e9e9e9ff",
     },
     buttonItem: {

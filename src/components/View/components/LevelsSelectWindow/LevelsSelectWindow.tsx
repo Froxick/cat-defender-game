@@ -5,19 +5,24 @@ import { ButtonSelect } from "../../ui/ButtonSelect/ButtonSelect"
 import { LevelsSelectData } from "./LevelsSelectData"
 import { useState } from "react"
 import { ButtonMenu } from "../../ui/ButtonMenu/ButtonMenu"
-
-export const LevelsSelectWindow = () => {
-    const [selectLevel,setSelectLevel] = useState<number>(0)
+import { language } from "@/src/localization/context/useLocalizationHookContext"
+import { localization } from "@/src/localization/data/localization"
+interface LevelsSelectWindowProps {
+    language: language
+}
+export const LevelsSelectWindow = ({language} : LevelsSelectWindowProps) => {
+    const text = localization[language].homeMenu.menuModal
+    const [selectLevel,setSelectLevel] = useState<number>(1)
     const selectLevelFnc = (id: number) => {
         setSelectLevel(id)
     }
     const styles = LevelsSelectWindowStyles
-    const levelsButtons = LevelsSelectData
+    const levelsButtons = LevelsSelectData(language)
     return(
         <View style={styles.container}>
             <HeaderMenu 
-                title="Выбор сложности"
-                titleSize={30}
+                title={text.titles.GameSelect}
+                titleSize={35}
                 subTitleSize={0}
                 subtitle=""
                 marginTop={20}
@@ -40,7 +45,7 @@ export const LevelsSelectWindow = () => {
             
 
            <ButtonMenu 
-                title="Играть"
+                title={text.buttons.play}
                 gradientColors={
                     {
                         one: '#ff7eb3',

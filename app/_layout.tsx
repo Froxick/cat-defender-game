@@ -6,6 +6,7 @@
 // import { useEffect } from 'react';
 // import 'react-native-reanimated';
 
+import { LocalizationProvider } from "@/src/localization/context/useLocalizationHookContext";
 import { Stack } from "expo-router";
 import { StyleSheet, View } from "react-native";
 
@@ -19,14 +20,18 @@ export default function RootLayout() {
     }
   })
   return(
-    <View style={styles.container}>
-      <Stack
-        screenOptions={{
-          headerShown: false
-        }}
-      >
-        
-      </Stack>
-    </View>
+    
+      <LocalizationProvider>
+        <View style={styles.container}>
+          <Stack
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          
+        </Stack>
+      </View>
+      </LocalizationProvider>
+    
   )
 }

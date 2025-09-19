@@ -6,11 +6,14 @@ import { COLORS } from "@/src/themes/Colors"
 import { HomeMenuStyles } from "./HomeMenuStyles"
 import { buttonsProps } from "./HomeButtonsData"
 import { HeaderMenu } from "../../ui/HeaderMenu/HeaderMenu"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { MenuModal } from "../MenuModal/MenuModal"
 import { SettingWindow } from "../SettingWindow/SettingWindow"
 import { StatsWindow } from "../StatsWindow/StatsWindow"
 import { LevelsSelectWindow } from "../LevelsSelectWindow/LevelsSelectWindow"
+import { LocalizationContext } from "@/src/localization/context/useLocalizationHookContext"
+import { language } from '../../../../localization/context/useLocalizationHookContext';
+import { localization } from "@/src/localization/data/localization"
   export interface IvisibleHomeMenu {
       stats: boolean,
       setting: boolean,
@@ -35,7 +38,10 @@ export const HomeMenu = () => {
       [key] : !prev[key]
     }))
   }
-  const buttonProps = buttonsProps(navigationTo,setVisibleState)
+  const context = useContext(LocalizationContext);
+  const language = context.language
+  const headerText = localization[context.language].homeMenu.header
+  const buttonProps = buttonsProps(navigationTo,setVisibleState,context?.language)
   return (
    <>
 
@@ -45,7 +51,7 @@ export const HomeMenu = () => {
           visible={visible.setting}
           onClose={() => setVisibleState('setting')}
         >
-          <SettingWindow />
+          <SettingWindow language={language}/>
         </MenuModal>
       ) 
     }
@@ -55,7 +61,7 @@ export const HomeMenu = () => {
           visible={visible.stats}
           onClose={() => setVisibleState('stats')}
         >
-          <StatsWindow />
+          <StatsWindow language={language}/>
         </MenuModal>
       )
     }
@@ -65,7 +71,7 @@ export const HomeMenu = () => {
           visible={visible.gameSelect}
           onClose={() => setVisibleState('gameSelect')}
         >
-          <LevelsSelectWindow />
+          <LevelsSelectWindow language={language}/>
         </MenuModal>
       )
     }
@@ -74,8 +80,8 @@ export const HomeMenu = () => {
       style={styles.container}
     >
       <HeaderMenu 
-        title="Cat Defender"
-        subtitle="Пушистый защитник"
+        title={headerText.title}
+        subtitle={headerText.subTitle}
         titleSize={45}
         subTitleSize={20}
         marginTop={50}
