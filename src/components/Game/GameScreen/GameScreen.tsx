@@ -8,6 +8,7 @@ import { GameMenu } from "../GameMenu/GameMenu";
 import { LocalizationContext } from "@/src/localization/context/useLocalizationHookContext";
 import { GameHudStatus } from "../GameHudStatus/GameHudStatus";
 import { localization } from "@/src/localization/data/localization";
+import { GameHud } from "../GameHud/GameHud";
 interface GameScreenProps {
     params : {
         [key: string]: string | string[];
@@ -63,22 +64,11 @@ export const GameScreen = ({params} : GameScreenProps) => {
                 <GameEngine 
                     running={!gameState.paused}
                 />
-                <View style={styles.hud}>
-                    <View
-                        style={styles.button}
-                    >
-                        <PausedButton 
-                            onPress={() => setGameStateFnc('paused')}
-                        />
-                    </View>
-                    <View style={styles.status}>
-                        <GameHudStatus 
-                            title={diff[difficulty]}
-                            diffId={difficulty}
-                        />
-                    </View>
-                    
-                </View>
+                <GameHud 
+                    title={diff[difficulty]}
+                    difficulty={difficulty}
+                    setGameStateFnc={() => setGameStateFnc('paused')}
+                />
             </View>
         </>
         
