@@ -1,14 +1,19 @@
 import { useRouter } from "expo-router"
-import { useContext, useEffect, useState } from "react";
-import {  View } from "react-native"
+import { useContext, useEffect, useRef, useState } from "react";
+import {  Dimensions, View } from "react-native"
 import {GameEngine} from 'react-native-game-engine'
 import { GameScreenStyles } from "./GameScreenStyles";
-import { PausedButton } from "../PausedButton/PausedButton";
 import { GameMenu } from "../GameMenu/GameMenu";
 import { LocalizationContext } from "@/src/localization/context/useLocalizationHookContext";
-import { GameHudStatus } from "../GameHudStatus/GameHudStatus";
 import { localization } from "@/src/localization/data/localization";
 import { GameHud } from "../GameHud/GameHud";
+import { Entities } from "@/src/types/gameTypes";
+import { setupEntities } from "@/src/utils/setupEntities";
+import { PlayerMoveSystems } from "@/src/systems/PlayerMoveSystems";
+import { ShootingSystem } from "@/src/systems/ShootingSystem";
+import { BulletMovementSystem } from "@/src/systems/BulletMoveSystem";
+import { PlayerAnimationSystem } from "@/src/systems/PlayerAnimationSystem";
+import { BreathAnimationSystem } from "@/src/systems/BreathAnimationSystem";
 interface GameScreenProps {
     params : {
         [key: string]: string | string[];
@@ -17,8 +22,12 @@ interface GameScreenProps {
 interface gameStateType {
     paused: boolean
 }
-
+export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 export const GameScreen = ({params} : GameScreenProps) => {
+    const gameEngineRef = useRef<GameEngine>(null);
+    const [entities, setEntities] = useState<Entities>(setupEntities(SCREEN_WIDTH,SCREEN_HEIGHT));
+    
+    
     const styles = GameScreenStyles
     const router = useRouter()
     const context = useContext(LocalizationContext)
@@ -62,6 +71,11 @@ export const GameScreen = ({params} : GameScreenProps) => {
             )}
             <View style={styles.container}>
                 <GameEngine 
+                    ref={gameEngineRef}
+                    entities={entities}
+                    systems={[PlayerMoveSystems,ShootingSystem,
+                        BulletMovementSystem,PlayerAnimationSystem,
+                        BreathAnimationSystem]}
                     running={!gameState.paused}
                 />
                 <GameHud 
