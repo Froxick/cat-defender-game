@@ -14,6 +14,7 @@ import { ShootingSystem } from "@/src/systems/ShootingSystem";
 import { BulletMovementSystem } from "@/src/systems/BulletMoveSystem";
 import { PlayerAnimationSystem } from "@/src/systems/PlayerAnimationSystem";
 import { BreathAnimationSystem } from "@/src/systems/BreathAnimationSystem";
+import { EnemyMoveSystem } from "@/src/systems/EnemyMoveSystem"
 interface GameScreenProps {
     params : {
         [key: string]: string | string[];
