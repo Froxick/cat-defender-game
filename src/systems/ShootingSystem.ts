@@ -1,5 +1,5 @@
 import Bullet from "../components/Game/GameEntitys/Bullet/Bullet";
-import { BulletEntity, Entities, PlayerEntity, Size, Time } from "../types/gameTypes";
+import { BulletEntity, Entities, GameState, PlayerEntity, Size, Time } from "../types/gameTypes";
  let bulletIdCounter = 0;
 export const ShootingSystem = (entities: Entities,{ time }: { time: Time }) => {
     const player = entities.player as PlayerEntity

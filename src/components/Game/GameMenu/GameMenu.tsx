@@ -8,9 +8,10 @@ interface GameMenuProps {
     onClose : () => void,
     visible: boolean,
     onExit: () => void,
+    onRestart: () => void,
     language: language
 }
-export const GameMenu = ({onClose,visible,onExit,language} : GameMenuProps) => {
+export const GameMenu = ({onClose,visible,onExit,language,onRestart} : GameMenuProps) => {
     const styles = GameMenuStyles
     const text = localization[language].gameHud.menu
     return(
@@ -54,7 +55,7 @@ export const GameMenu = ({onClose,visible,onExit,language} : GameMenuProps) => {
                                 two: '#7591ffff'
                             }
                         }
-                        onPress={() => {}}
+                        onPress={onRestart}
                         title={text.buttons.again}
                     />
                 </View>

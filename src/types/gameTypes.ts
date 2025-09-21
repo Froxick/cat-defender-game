@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+
 
 export interface Position {
   x: number;
@@ -10,8 +10,8 @@ export interface Size {
   height: number;
 }
 export interface Entity {
-    position: Position,
-    size: Size,
+    position?: Position,
+    size?: Size,
     renderer?: React.FC<any>
 }
 export interface Time {
@@ -20,19 +20,38 @@ export interface Time {
     previous: number; 
     previousDelta: number
 }
+export interface GameState extends Entity {
+    screenWidth: number;
+    screenHeight: number;
+    gameOver: boolean;
+    difficulty: number;
+}
 export interface PlayerEntity extends Entity {
+    position: Position,
+    size: Size,
     lastShotTime: number;
     shotCooldown: number;
     state: 'aiming' | 'shooting';
     animationTimer: number; breathPhase: number; 
     breathSpeed: number; 
     breathAmplitude: number; 
+    health: number;
+    maxHealth: number;
 }
 export interface BulletEntity extends Entity {
+    position: Position,
+    size: Size,
     velocity: number
 }
 export interface Entities {
-    [key: string] : Entity
+    [key: string] : Entity,
+    gameState: GameState
+}
+export interface SystemArgs {
+  time: Time
+  touches: any[];
+  events: any[];
+  dispatch: (event: any) => void;
 }
 export interface GameTouchEvent {
   type: string;

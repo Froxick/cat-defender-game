@@ -1,5 +1,5 @@
-import { SCREEN_WIDTH } from "../components/Game/GameScreen/GameScreen";
-import { Entities, GameTouchEvent } from "../types/gameTypes";
+
+import { Entities, GameTouchEvent, PlayerEntity } from "../types/gameTypes";
 
 function isMoveEvent(touch: GameTouchEvent): touch is GameTouchEvent & { delta: { pageX: number; pageY: number } } {
   return touch.type === 'move' && touch.delta !== undefined;
@@ -10,7 +10,7 @@ export const PlayerMoveSystems = (
   entities: Entities, 
   { touches }: { touches: GameTouchEvent[] }
 ) => {
-  const player = entities.player;
+  const player = entities.player as PlayerEntity;
   
   const moveTouches = touches.filter(isMoveEvent);
   
@@ -19,7 +19,7 @@ export const PlayerMoveSystems = (
     
     let nextX = player.position.x + touch.delta.pageX;
     nextX = Math.max(0, nextX);
-    nextX = Math.min(SCREEN_WIDTH - player.size.width, nextX);
+    nextX = Math.min(entities.gameState.screenWidth - player.size.width, nextX);
     
     player.position.x = nextX;
   }
