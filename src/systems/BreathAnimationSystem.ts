@@ -1,4 +1,4 @@
-import { Entities, PlayerEntity } from "../types/gameTypes";
+import { Entities, GameState, PlayerEntity } from "../types/gameTypes";
 
 export const BreathAnimationSystem = (entities: Entities, { time }: { time: { current: number, delta: number } }) => {
   const player = entities.player as PlayerEntity;
