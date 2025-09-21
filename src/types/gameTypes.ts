@@ -45,4 +45,7 @@ export interface GameTouchEvent {
     locationY: number;
   };
 }
-
+export interface EnemyEntity extends Entity {
+  velocity: number
+}
+  
