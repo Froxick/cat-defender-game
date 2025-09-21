@@ -2,20 +2,31 @@ import { View } from "react-native"
 import { PausedButton } from "../PausedButton/PausedButton"
 import { GameHudStatus } from "../GameHudStatus/GameHudStatus"
 import { GameHudStyles } from "./GameHudStyle"
+import { GameHealthUi } from "../GameHealthUi/GameHealthUi"
 interface GameHudProps {
     title: string,
     setGameStateFnc : () => void,
-    difficulty: number
+    difficulty: number,
+    health: {
+        maxHealth: number,
+        health: number
+    }
 }
 export const GameHud = ({...props} : GameHudProps) => {
     const styles = GameHudStyles
     return(
         <View style={styles.hud}>
-            <View style={styles.button}>
-                 <PausedButton
-                        onPress={props.setGameStateFnc}
+            <View>
+                <View style={styles.button}>
+                    <PausedButton
+                            onPress={props.setGameStateFnc}
+                    />
+                 </View>
+                 <GameHealthUi 
+                    health={props.health}
                  />
             </View>
+            
             <View style={styles.status}>
                 <GameHudStatus 
                     title={props.title}

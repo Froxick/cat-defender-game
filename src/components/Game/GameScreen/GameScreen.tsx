@@ -7,27 +7,33 @@ import { GameMenu } from "../GameMenu/GameMenu";
 import { LocalizationContext } from "@/src/localization/context/useLocalizationHookContext";
 import { localization } from "@/src/localization/data/localization";
 import { GameHud } from "../GameHud/GameHud";
-import { Entities } from "@/src/types/gameTypes";
+import { Entities, GameState, PlayerEntity } from "@/src/types/gameTypes";
 import { setupEntities } from "@/src/utils/setupEntities";
 import { PlayerMoveSystems } from "@/src/systems/PlayerMoveSystems";
 import { ShootingSystem } from "@/src/systems/ShootingSystem";
 import { BulletMovementSystem } from "@/src/systems/BulletMoveSystem";
 import { PlayerAnimationSystem } from "@/src/systems/PlayerAnimationSystem";
 import { BreathAnimationSystem } from "@/src/systems/BreathAnimationSystem";
+import { createSystemWrapper } from "@/src/utils/systemWrapper";
+import { PlayerHealthSystem } from "@/src/systems/PlayerHealthSystem";
+
 interface GameScreenProps {
     params : {
         [key: string]: string | string[];
     }
 }
 interface gameStateType {
-    paused: boolean
+    paused: boolean,
+    gameOver: boolean
 }
 export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 export const GameScreen = ({params} : GameScreenProps) => {
+    const [gameKey, setGameKey] = useState(0);
     const gameEngineRef = useRef<GameEngine>(null);
-    const [entities, setEntities] = useState<Entities>(setupEntities(SCREEN_WIDTH,SCREEN_HEIGHT));
-    
-    
+    const[difficulty,setDifficulty] = useState(parseInt(params.difficulty as string))
+    const [entities, setEntities] = useState<Entities>(setupEntities(SCREEN_WIDTH,SCREEN_HEIGHT,difficulty));
+    const gameStateFromEntities = entities.gameState as GameState;
+    const gameStatePlayer = entities.player as PlayerEntity
     const styles = GameScreenStyles
     const router = useRouter()
     const context = useContext(LocalizationContext)
@@ -42,8 +48,20 @@ export const GameScreen = ({params} : GameScreenProps) => {
     const onExit = () => {
         router.replace('/')
     }
+    const restartGame = () => {
+        
+        const newEntities = setupEntities(SCREEN_WIDTH, SCREEN_HEIGHT, difficulty);
+        
+        setEntities(newEntities);
+        setGameState({
+            paused: false,
+            gameOver: false
+        });
+        setGameKey(prev => prev + 1);
+    }
     const[gameState,setGameState] = useState<gameStateType>({
-        paused: false
+        paused: false,
+        gameOver: gameStateFromEntities.gameOver
     })
     const setGameStateFnc = (key: keyof gameStateType) => {
         setGameState(prev => ({
@@ -51,18 +69,28 @@ export const GameScreen = ({params} : GameScreenProps) => {
             [key]: !prev[key]
         }))
     }
-    const[difficulty,setDifficulty] = useState(1)
+    
 
+   
     useEffect(() => {
-        if(params.difficulty) {
-            const diff = parseInt(params.difficulty as string);
-            setDifficulty(diff)
-        }
-    },[params.difficulty])
+        setGameState(prev => ({
+            ...prev,
+            gameOver: gameStateFromEntities.gameOver
+        }))
+    }, [gameStateFromEntities.gameOver])
+   
+    
+    const wrappedPlayerMoveSystems = createSystemWrapper(PlayerMoveSystems);
+    const wrappedShootingSytems = createSystemWrapper(ShootingSystem);
+    const wrappedBulletMoveSystems = createSystemWrapper(BulletMovementSystem);
+    const wrappedPlayerAnimationSystems = createSystemWrapper(PlayerAnimationSystem);
+    const wrappedBreathAnimationSystems = createSystemWrapper(BreathAnimationSystem);
+    const wrappedPlayerHealthSystems = createSystemWrapper(PlayerHealthSystem);
     return(
         <>
             {gameState.paused && (
                 <GameMenu 
+                    onRestart={restartGame}
                     visible={gameState.paused}
                     onClose={() => setGameStateFnc('paused')}
                     onExit={onExit}
@@ -71,14 +99,28 @@ export const GameScreen = ({params} : GameScreenProps) => {
             )}
             <View style={styles.container}>
                 <GameEngine 
+                    key={gameKey}
                     ref={gameEngineRef}
                     entities={entities}
-                    systems={[PlayerMoveSystems,ShootingSystem,
-                        BulletMovementSystem,PlayerAnimationSystem,
-                        BreathAnimationSystem]}
-                    running={!gameState.paused}
+                    systems={[
+                        wrappedPlayerMoveSystems,wrappedShootingSytems,
+                        wrappedBulletMoveSystems,wrappedPlayerAnimationSystems,
+                        wrappedBreathAnimationSystems,wrappedPlayerHealthSystems
+                    ]}
+                    running={!gameState.paused }
+                    onEvent={(event : any) => {
+                        if(event.type === 'GAME_OVER') {
+                            setGameStateFnc('gameOver')
+                        }
+                    }}
                 />
-                <GameHud 
+                <GameHud
+                    health={
+                        {
+                            maxHealth:gameStatePlayer.maxHealth,
+                            health: gameStatePlayer.health
+                        }
+                    }
                     title={diff[difficulty]}
                     difficulty={difficulty}
                     setGameStateFnc={() => setGameStateFnc('paused')}

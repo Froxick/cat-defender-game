@@ -1,4 +1,4 @@
-import { BulletEntity, Entities } from "../types/gameTypes";
+import { BulletEntity, Entities, GameState } from "../types/gameTypes";
 
 export const BulletMovementSystem = (entities: Entities) => {
   Object.keys(entities).forEach(key => {

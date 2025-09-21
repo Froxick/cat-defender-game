@@ -1,4 +1,4 @@
-import { Entities, PlayerEntity, Time } from "../types/gameTypes";
+import { Entities, GameState, PlayerEntity, Time } from "../types/gameTypes";
 
 export const PlayerAnimationSystem = (entities: Entities, {time} : {time: Time}) => {
     const player = entities.player as PlayerEntity
@@ -6,5 +6,5 @@ export const PlayerAnimationSystem = (entities: Entities, {time} : {time: Time})
         player.state = 'aiming'
     }
     
-    return entities;
+    return  entities;
 }
