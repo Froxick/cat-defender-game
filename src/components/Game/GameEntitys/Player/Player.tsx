@@ -1,6 +1,6 @@
 import { Position, Size } from "@/src/types/gameTypes"
 import { Image } from "react-native"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet } from "react-native"
 
 interface PlayerProps {
     position: Position,

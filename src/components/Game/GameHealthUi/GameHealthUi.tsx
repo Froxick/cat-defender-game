@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { View } from "react-native"
+import { Image, View } from "react-native"
 import { GameHealthUiStyle } from "./GameHealthUiStyle"
 interface GameHealthUiProps {
     health: {
@@ -16,15 +16,19 @@ export const GameHealthUi = ({health} : GameHealthUiProps) => {
         for (let i = 0; i < health.maxHealth; i++) {
             if (i < health.health) {
                 items.push(
-                    <View
-                    key={i}
-                    style={[styles.healthitem, styles.filledHealth]}
+                    <Image
+                        source={require('@/assets/images/hp.png')}
+                        
+                        key={i}
+                        style={[styles.healthitem, styles.filledHealth]}
                     />
                 );
             } 
             else {
                 items.push(
-                    <View
+                    <Image
+                        source={require('@/assets/images/hp_empty.png')}
+                        
                         key={i}
                         style={[styles.healthitem, styles.emptyHealth]}
                     />  

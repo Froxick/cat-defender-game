@@ -6,20 +6,18 @@ export const GameHealthUiStyle = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10,
+      
         gap: 10,
         marginTop: 10
     },
     healthitem: {
-        width: 20,
-        height: 20,
-        borderRadius: 10,
-        marginHorizontal: 5,
+        width: 60,
+        height: 60,
     },
     filledHealth: {
-        backgroundColor: 'red', 
+        // backgroundColor: 'red', 
     },
     emptyHealth: {
-        backgroundColor: 'black', 
+        // backgroundColor: 'black', 
     },
 })

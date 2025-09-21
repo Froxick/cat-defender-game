@@ -51,7 +51,9 @@ export const setupEntities = (SCREEN_WIDTH: number,
                 screenHeight: SCREEN_HEIGHT,
                 screenWidth: SCREEN_WIDTH,
                 gameOver: false,
-                difficulty: difficulty
+                difficulty: difficulty,
+                enemySpeed: 2,
+                enemySpawnInterval: 1500,
             } as GameState
             
         }

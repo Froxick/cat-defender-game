@@ -2,7 +2,11 @@ import { StyleSheet } from "react-native";
 
 export const GameScreenStyles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+    },
+    fonBlur: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,0,0.1)'
     },
     hud: {
         position: 'absolute',

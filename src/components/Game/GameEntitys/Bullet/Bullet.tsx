@@ -1,6 +1,7 @@
 import { Position, Size } from '@/src/types/gameTypes';
 import React from 'react';
-import { View } from 'react-native';
+import { Image } from 'react-native';
+
 
 
 interface BulletProps {
@@ -10,14 +11,15 @@ interface BulletProps {
 
 const Bullet: React.FC<BulletProps> = ({ position, size }) => {
   return (
-    <View
+    <Image
+      source={require('@/assets/images/bullet.png')}
+      resizeMode='cover'
       style={{
         position: 'absolute',
         left: position.x,
         top: position.y,
         width: size.width,
         height: size.height,
-        backgroundColor: '#252525ff',
         borderRadius: size.width / 2, 
       }}
     />

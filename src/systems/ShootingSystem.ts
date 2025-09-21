@@ -7,8 +7,8 @@ export const ShootingSystem = (entities: Entities,{ time }: { time: Time }) => {
         player.state = 'shooting';
         player.animationTimer = time.current;
         const bulletSize : Size = {
-            width: 8,
-            height: 15
+            width:35,
+            height: 40
         }
         const newBullet : BulletEntity = {
             position: {

@@ -13,7 +13,8 @@ export const GameHudStyles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0)',
     },
     button: {
-        marginTop: 60
+        marginTop: 60,
+        marginLeft: 5
     },
     status: {
         position: 'absolute',

@@ -25,6 +25,8 @@ export interface GameState extends Entity {
     screenHeight: number;
     gameOver: boolean;
     difficulty: number;
+    enemySpeed: number;
+    enemySpawnInterval: number;
 }
 export interface PlayerEntity extends Entity {
     position: Position,
@@ -65,5 +67,7 @@ export interface GameTouchEvent {
   };
 }
 export interface EnemyEntity extends Entity {
-  velocity: number
+  velocity: number,
+  size: Size,
+  position: Position,
 }

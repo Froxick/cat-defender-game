@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router"
 import { useContext, useEffect, useRef, useState } from "react";
-import {  Dimensions, View } from "react-native"
+import {  Dimensions, ImageBackground, View } from "react-native"
 import {GameEngine} from 'react-native-game-engine'
 import { GameScreenStyles } from "./GameScreenStyles";
 import { GameMenu } from "../GameMenu/GameMenu";
@@ -17,6 +17,8 @@ import { BreathAnimationSystem } from "@/src/systems/BreathAnimationSystem";
 
 import { createSystemWrapper } from "@/src/utils/systemWrapper";
 import { PlayerHealthSystem } from "@/src/systems/PlayerHealthSystem";
+import { EnemySpawnSystem } from "@/src/systems/EnemySpawnSystem";
+import { EnemyMoveSystem } from "@/src/systems/EnemyMoveSystem";
 
 
 interface GameScreenProps {
@@ -88,6 +90,8 @@ export const GameScreen = ({params} : GameScreenProps) => {
     const wrappedPlayerAnimationSystems = createSystemWrapper(PlayerAnimationSystem);
     const wrappedBreathAnimationSystems = createSystemWrapper(BreathAnimationSystem);
     const wrappedPlayerHealthSystems = createSystemWrapper(PlayerHealthSystem);
+    const wrappedEnemySpawnSystems = createSystemWrapper(EnemySpawnSystem)
+    const wrappedEnemyMoveSystems = createSystemWrapper(EnemyMoveSystem);
     return(
         <>
             {gameState.paused && (
@@ -99,7 +103,13 @@ export const GameScreen = ({params} : GameScreenProps) => {
                     language={language}
                 />
             )}
-            <View style={styles.container}>
+            <ImageBackground
+                source={require('@/assets/images/backFon.jpg')}
+                resizeMode="cover"
+                style={styles.container}>
+                <View
+                    style={styles.fonBlur}
+                />
                 <GameEngine 
                     key={gameKey}
                     ref={gameEngineRef}
@@ -107,7 +117,8 @@ export const GameScreen = ({params} : GameScreenProps) => {
                     systems={[
                         wrappedPlayerMoveSystems,wrappedShootingSytems,
                         wrappedBulletMoveSystems,wrappedPlayerAnimationSystems,
-                        wrappedBreathAnimationSystems,wrappedPlayerHealthSystems
+                        wrappedBreathAnimationSystems,wrappedPlayerHealthSystems,
+                        wrappedEnemySpawnSystems,wrappedEnemyMoveSystems
                     ]}
                     running={!gameState.paused }
                     onEvent={(event : any) => {
@@ -127,7 +138,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
                     difficulty={difficulty}
                     setGameStateFnc={() => setGameStateFnc('paused')}
                 />
-            </View>
+            </ImageBackground>
         </>
         
     )
