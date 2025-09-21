@@ -14,8 +14,10 @@ import { ShootingSystem } from "@/src/systems/ShootingSystem";
 import { BulletMovementSystem } from "@/src/systems/BulletMoveSystem";
 import { PlayerAnimationSystem } from "@/src/systems/PlayerAnimationSystem";
 import { BreathAnimationSystem } from "@/src/systems/BreathAnimationSystem";
+
 import { createSystemWrapper } from "@/src/utils/systemWrapper";
 import { PlayerHealthSystem } from "@/src/systems/PlayerHealthSystem";
+
 
 interface GameScreenProps {
     params : {
