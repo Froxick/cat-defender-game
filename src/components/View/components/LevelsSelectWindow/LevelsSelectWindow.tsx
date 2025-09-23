@@ -32,7 +32,7 @@ export const LevelsSelectWindow = ({language} : LevelsSelectWindowProps) => {
         <View style={styles.container}>
             <HeaderMenu 
                 title={text.titles.GameSelect}
-                titleSize={35}
+                titleSize={32}
                 subTitleSize={0}
                 subtitle=""
                 marginTop={20}

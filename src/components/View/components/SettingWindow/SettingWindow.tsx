@@ -16,7 +16,7 @@ export const SettingWindow = ({language} : SettingWindowProps) => {
         <View>
            <HeaderMenu 
             title={text.GameSetting}
-            titleSize={35}
+            titleSize={32}
             subTitleSize={0}
             subtitle=""
             marginTop={20}

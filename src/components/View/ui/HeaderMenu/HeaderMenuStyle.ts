@@ -6,10 +6,13 @@ subTitleSize: number,marginTop: number) => StyleSheet.create({
     header: {
         alignItems: 'center',
         marginTop: marginTop,
+        justifyContent: 'center',
+        textAlign: 'center'
       },
      
       title: {
         fontSize: titleSize,
+        textAlign: 'center',
         fontWeight: 'bold',
         color: COLORS.HeaderTextColor,
         textShadowColor: 'rgba(0, 0, 0, 0.1)',

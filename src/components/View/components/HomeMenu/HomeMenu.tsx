@@ -82,7 +82,7 @@ export const HomeMenu = () => {
       <HeaderMenu 
         title={headerText.title}
         subtitle={headerText.subTitle}
-        titleSize={45}
+        titleSize={40}
         subTitleSize={20}
         marginTop={50}
       />    
