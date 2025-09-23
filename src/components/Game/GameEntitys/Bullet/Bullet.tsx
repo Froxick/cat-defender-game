@@ -12,7 +12,7 @@ interface BulletProps {
 const Bullet: React.FC<BulletProps> = ({ position, size }) => {
   return (
     <Image
-      source={require('@/assets/images/bullet.png')}
+      source={require('@/assets/images/bulletDark.png')}
       resizeMode='cover'
       style={{
         position: 'absolute',
