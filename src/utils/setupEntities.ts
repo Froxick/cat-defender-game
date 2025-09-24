@@ -12,6 +12,10 @@ export const setupEntities = (SCREEN_WIDTH: number,
             width: SCREEN_WIDTH,
             height: 5
         }
+        const enemySetting = {
+            enemySpeed: 1.8,
+            enemySpawnInterval: 2000,
+        }
         let maxHealth : number;
         switch(difficulty) {
             case 1: {
@@ -20,16 +24,20 @@ export const setupEntities = (SCREEN_WIDTH: number,
             }
             case 2: {
                 maxHealth = 2;
+                enemySetting.enemySpawnInterval = 1400
+                enemySetting.enemySpeed = 2
                 break;
             }
             case 3: {
                 maxHealth = 1;
+                enemySetting.enemySpawnInterval = 1200
+                enemySetting.enemySpeed = 2.2
                 break
             }
             default: {
                 maxHealth = 3
                 break
-            }
+            }       
         }
         return{
             
@@ -42,7 +50,7 @@ export const setupEntities = (SCREEN_WIDTH: number,
                     size: playerSize,
                     renderer: Player, 
                     lastShotTime: 0,
-                    shotCooldown: 800,
+                    shotCooldown: 1000,
                     state: 'aiming', 
                     animationTimer: 0,
                     breathPhase: 0,
@@ -67,8 +75,9 @@ export const setupEntities = (SCREEN_WIDTH: number,
                 screenWidth: SCREEN_WIDTH,
                 gameOver: false,
                 difficulty: difficulty,
-                enemySpeed: 2,
-                enemySpawnInterval: 1500,
+                enemySpeed: enemySetting.enemySpeed,
+                enemySpawnInterval: enemySetting.enemySpawnInterval,
+                points: 0,
             } as GameState
             
         }

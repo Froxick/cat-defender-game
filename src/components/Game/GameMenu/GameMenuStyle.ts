@@ -13,15 +13,15 @@ export const GameMenuStyles = StyleSheet.create({
     },
     modalContainer: {
         width: windowWight * 0.9,
-        maxHeight: windowHeight * 0.8,
-        minHeight: windowHeight * 0.3,
+        maxHeight: windowHeight * 0.7,
+        minHeight: windowHeight * 0.28,
         backgroundColor: '#f8f3f4ff',
         borderRadius: 20,
         padding: 20,
         shadowColor: '#000',
         shadowOffset: {
-        width: 0,
-        height: 2,
+            width: 0,
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
@@ -42,11 +42,30 @@ export const GameMenuStyles = StyleSheet.create({
         textShadowRadius: 5,
     },
     contentContainer: {
-     
+        paddingTop: 40,
+        paddingLeft: 20,
+        justifyContent: 'center',
+        alignContent: 'center',
+        gap: 10
     },
     buttonsContainer : {
         flexDirection: 'row',
         gap: 50,
-        marginTop: 80
+        marginTop: 50,
+    },
+    diffContainer: {
+      
+    },
+    pointsContainer: {
+        
+    },
+    statsText: {
+        fontSize: 17,
+        color: '#2e2e2eff'
+    },
+    points: {
+        color: COLORS.HeaderTextColor,
+        fontWeight: 'bold'
     }
+
 })

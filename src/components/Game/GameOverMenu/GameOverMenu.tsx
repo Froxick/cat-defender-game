@@ -1,12 +1,15 @@
 import {  Modal, Text, TouchableOpacity, View } from "react-native"
 import { GameOverStyles } from "./GameOverStyles"
 import { GameMenuButton } from "../GameMenuButtons/GameMenuButton"
+import { PointsCounter } from '../PointsCounter/PointsCounter';
 interface GameOverMenuProps {
     title: string,
     buttonText: string,
     onClose: () => void,
+    points: number,
+    textPoints: string
 }
-export const GameOverMenu = ({title,buttonText,onClose}: GameOverMenuProps) => {
+export const GameOverMenu = ({textPoints,points,title,buttonText,onClose}: GameOverMenuProps) => {
     const styles = GameOverStyles
     return(
         <Modal animationType="fade" transparent={true}>
@@ -17,6 +20,17 @@ export const GameOverMenu = ({title,buttonText,onClose}: GameOverMenuProps) => {
                             {title}
                         </Text>
                     </View>
+                    <View style={styles.contentContainer}>
+                         <View style={styles.pointsContainer}>
+                            <Text style={styles.textPoints}>
+                                {textPoints}!
+                            </Text>
+                            <Text style={styles.pointsCount}>
+                                {points}
+                            </Text>
+                        </View>
+                    </View>
+                   
                 </View>
                 <View style={styles.buttons}>
                     <GameMenuButton 

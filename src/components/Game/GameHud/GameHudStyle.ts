@@ -21,4 +21,10 @@ export const GameHudStyles = StyleSheet.create({
         left: 150,
         top:  85
     },
+    pointsCounter: {
+        position: 'absolute',
+        right: 0,
+        marginRight: 25,
+        top:  95
+    }
 })

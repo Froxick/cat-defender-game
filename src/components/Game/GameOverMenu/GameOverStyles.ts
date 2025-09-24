@@ -34,7 +34,7 @@ export const GameOverStyles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-            fontSize: 30,
+            fontSize: 35,
             fontWeight: 'bold',
             color:COLORS.HeaderTextColor,
             textShadowColor: 'rgba(0, 0, 0, 0.1)',
@@ -45,7 +45,29 @@ export const GameOverStyles = StyleSheet.create({
         marginTop: 60,
         justifyContent:'center'
     },
-    button:{
-
+    pointsContainer: {
+        marginTop: 30,
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ffe0e0ff',
+        width: 250,
+        height: 100,
+        borderRadius: 20
+    },
+    textPoints: {
+        fontSize: 22
+    },
+    pointsCount: {
+        color: COLORS.HeaderTextColor,
+        fontWeight: 'bold',
+        fontSize: 30
+    },
+    contentContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        
     }
 })

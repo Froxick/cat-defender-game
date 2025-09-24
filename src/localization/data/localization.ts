@@ -38,7 +38,12 @@ export const localization = {
                 title: 'Пауза',
                 buttons: {
                     exit: 'Выйти',
-                    again: 'Заново'
+                    again: 'Заново',
+                
+                },
+                content: {
+                    count: 'Количество очков',
+                    diff: 'Сложность'
                 }
             },
             gameOver: {
@@ -82,7 +87,12 @@ export const localization = {
                 title: 'Paused',
                 buttons: {
                     exit: 'Exit',
-                    again: 'Again'
+                    again: 'Again',
+                    
+                },
+                content: {
+                    count: 'Count of points',
+                    diff: 'Difficulty'
                 }
             },
             gameOver: {

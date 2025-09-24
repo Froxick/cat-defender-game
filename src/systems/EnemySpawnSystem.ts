@@ -1,8 +1,7 @@
 import Enemy from "../components/Game/GameEntitys/Enemy/Enemy";
 import { EnemyEntity, Entities, GameState, Time } from "../types/gameTypes";
-
-const ENEMY_WIDTH = 60;
-const ENEMY_HEIGHT = 70; 
+const BASE_ENEMY_WIDTH = 60;
+const BASE_ENEMY_HEIGHT = 70; 
 
 let lastSpawnTime = 0;
 
@@ -13,16 +12,23 @@ export const EnemySpawnSystem = (
   if (time.current - lastSpawnTime > gameState.enemySpawnInterval) {
     const enemyId = `enemy_${Date.now()}`; 
     
-    const randomX = Math.random() * (gameState.screenWidth - ENEMY_WIDTH);
+    const widthVariation = Math.random() * 20 - 10; 
+    const heightVariation = Math.random() * 20 - 10; 
+    
+    
+    const enemyWidth = Math.max(30, BASE_ENEMY_WIDTH + widthVariation); 
+    const enemyHeight = Math.max(40, BASE_ENEMY_HEIGHT + heightVariation); 
+    
+    const randomX = Math.random() * (gameState.screenWidth - enemyWidth);
     
     entities[enemyId] = {
       position: {
         x: randomX,
-        y: -ENEMY_HEIGHT,
+        y: -enemyHeight, 
       },
       size: {
-        width: ENEMY_WIDTH,
-        height: ENEMY_HEIGHT,
+        width: enemyWidth,
+        height: enemyHeight,
       },
       renderer: Enemy,
       velocity: gameState.enemySpeed,

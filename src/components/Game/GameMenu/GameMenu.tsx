@@ -9,9 +9,11 @@ interface GameMenuProps {
     visible: boolean,
     onExit: () => void,
     onRestart: () => void,
-    language: language
+    language: language,
+    points: number,
+    diffText: string
 }
-export const GameMenu = ({onClose,visible,onExit,language,onRestart} : GameMenuProps) => {
+export const GameMenu = ({diffText,points,onClose,visible,onExit,language,onRestart} : GameMenuProps) => {
     const styles = GameMenuStyles
     const text = localization[language].gameHud.menu
     return(
@@ -33,8 +35,21 @@ export const GameMenu = ({onClose,visible,onExit,language,onRestart} : GameMenuP
                             {text.title}
                         </Text>
                     </View>
-                    <View style={styles.contentContainer}>
-
+                   <View style={styles.contentContainer}>
+                     <View style={styles.diffContainer}>
+                            <Text style={styles.statsText}>
+                                {text.content.diff} : <Text style={styles.points}>
+                                    {diffText}
+                                </Text>
+                            </Text>
+                    </View>
+                        <View style={styles.pointsContainer}>
+                            <Text style={styles.statsText}>
+                                {text.content.count} : <Text style={styles.points}>
+                                    {points}
+                                </Text>
+                            </Text>
+                        </View>
                     </View>
                 </View>
                 <View style={styles.buttonsContainer}>

@@ -33,6 +33,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
         health: (entities.player as PlayerEntity).health,
         maxHealth: (entities.player as PlayerEntity).maxHealth
     });
+    const [points,setPoitns] = useState(entities.gameState.points || 0);
     const styles = GameScreenStyles
     const router = useRouter()
     const context = useContext(LocalizationContext)
@@ -62,6 +63,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
             health: player.health,
             maxHealth:player.maxHealth
         })
+        setPoitns(newEntities.gameState.points)
     }
     const[gameState,setGameState] = useState<gameStateType>({
         paused: false,
@@ -74,6 +76,24 @@ export const GameScreen = ({params} : GameScreenProps) => {
         }))
     }
     
+    const eventHendler = (type : string) => {
+        switch(type) {
+            case 'GAME_OVER': {
+                setGameStateFnc('paused')
+                setGameStateFnc('gameOver')
+            }
+            case 'PLAYER_DAMAGE' : {
+                const player = entities.player as PlayerEntity
+                setPlayerHealth({
+                    health: player.health,
+                    maxHealth: player.maxHealth
+                })
+            }
+            case 'KILL': {
+                setPoitns(entities.gameState.points)
+            }
+        }
+    }
 
 
     
@@ -84,6 +104,8 @@ export const GameScreen = ({params} : GameScreenProps) => {
             {
                 gameState.gameOver && (
                     <GameOverMenu 
+                        points={points}
+                        textPoints={language === 'ru' ? 'Очки' : 'Points'}
                         title={textGameOver.title}
                         buttonText={textGameOver.button}
                         onClose={onExit}
@@ -93,6 +115,8 @@ export const GameScreen = ({params} : GameScreenProps) => {
             }
             {(gameState.paused === true && gameState.gameOver != true) && (
                 <GameMenu 
+                    diffText={diff[difficulty]}
+                    points={points}
                     onRestart={restartGame}
                     visible={gameState.paused}
                     onClose={() => setGameStateFnc('paused')}
@@ -114,20 +138,12 @@ export const GameScreen = ({params} : GameScreenProps) => {
                     systems={systems}
                     running={!gameState.paused }
                     onEvent={(event : any) => {
-                        if(event.type === 'GAME_OVER') {
-                            setGameStateFnc('paused')
-                            setGameStateFnc('gameOver')
-                        }
-                        if(event.type === 'PLAYER_DAMAGE'){
-                            const player = entities.player as PlayerEntity
-                            setPlayerHealth({
-                                health: player.health,
-                                maxHealth: player.maxHealth
-                            })
-                        }
+                        eventHendler(event.type as string)
                     }}
                 />
                 <GameHud
+                    pointsText={language === 'ru' ? 'Очки' : 'Points'}
+                    poitnts={points}
                     health={
                        playerHealth
                     }

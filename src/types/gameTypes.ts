@@ -27,6 +27,7 @@ export interface GameState extends Entity {
     difficulty: number;
     enemySpeed: number;
     enemySpawnInterval: number;
+    points: number;
 }
 export interface PlayerEntity extends Entity {
     position: Position,

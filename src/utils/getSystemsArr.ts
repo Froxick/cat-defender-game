@@ -1,5 +1,6 @@
 import { BreathAnimationSystem } from "../systems/BreathAnimationSystem";
 import { BulletMovementSystem } from "../systems/BulletMoveSystem";
+import { CollisionSystem } from "../systems/ColisionSystem";
 import { DamageSystem } from "../systems/DamageSystem";
 import { EnemyMoveSystem } from "../systems/EnemyMoveSystem";
 import { EnemySpawnSystem } from "../systems/EnemySpawnSystem";
@@ -21,6 +22,7 @@ export const getSystemsArr = () => {
             createSystemWrapper(EnemySpawnSystem),
             createSystemWrapper(EnemyMoveSystem),
             createSystemWrapper(DamageSystem),
+            createSystemWrapper(CollisionSystem)
         ]
     )
 }

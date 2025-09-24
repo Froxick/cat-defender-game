@@ -17,7 +17,7 @@ export const ShootingSystem = (entities: Entities,{ time }: { time: Time }) => {
             },
             size: bulletSize,
             renderer: Bullet,
-            velocity: -5
+            velocity: -8
         } 
         const newBulletId = `bullet_${bulletIdCounter++}`;
         entities[newBulletId] = newBullet;
