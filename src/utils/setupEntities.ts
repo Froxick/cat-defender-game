@@ -1,11 +1,16 @@
+import Line from "../components/Game/GameEntitys/Line/Line";
 import Player from "../components/Game/GameEntitys/Player/Player";
-import { Entities, GameState, PlayerEntity, Size } from "../types/gameTypes";
+import { Entities, GameState, LineEntity, PlayerEntity, Size } from "../types/gameTypes";
 
 export const setupEntities = (SCREEN_WIDTH: number,
      SCREEN_HEIGHT: number, difficulty: number) : Entities => {
         const playerSize : Size = {
             width: 120,
             height: 120
+        }
+        const lineSize : Size = {
+            width: SCREEN_WIDTH,
+            height: 5
         }
         let maxHealth : number;
         switch(difficulty) {
@@ -32,7 +37,7 @@ export const setupEntities = (SCREEN_WIDTH: number,
                     
                     position: {
                         x: SCREEN_WIDTH / 2 - playerSize.width / 2, 
-                        y: SCREEN_HEIGHT - playerSize.height - 20, 
+                        y: SCREEN_HEIGHT - playerSize.height + 10, 
                     },
                     size: playerSize,
                     renderer: Player, 
@@ -46,6 +51,16 @@ export const setupEntities = (SCREEN_WIDTH: number,
                     health: maxHealth,
                     maxHealth: maxHealth,
                 } as PlayerEntity,
+            line: {
+                position: {
+                        x: 0, 
+                        y: SCREEN_HEIGHT - playerSize.height - 10, 
+                },
+                size: lineSize,
+                renderer: Line
+            } as LineEntity,
+
+
             
             gameState: {
                 screenHeight: SCREEN_HEIGHT,

@@ -40,6 +40,10 @@ export interface PlayerEntity extends Entity {
     health: number;
     maxHealth: number;
 }
+export interface LineEntity extends Entity {
+    position: Position,
+    size: Size,
+}
 export interface BulletEntity extends Entity {
     position: Position,
     size: Size,
