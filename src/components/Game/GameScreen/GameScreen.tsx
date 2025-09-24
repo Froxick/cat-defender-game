@@ -19,6 +19,8 @@ import { createSystemWrapper } from "@/src/utils/systemWrapper";
 import { PlayerHealthSystem } from "@/src/systems/PlayerHealthSystem";
 import { EnemySpawnSystem } from "@/src/systems/EnemySpawnSystem";
 import { EnemyMoveSystem } from "@/src/systems/EnemyMoveSystem";
+import { CollisionSystem } from "@/src/systems/CollisionSystem";
+
 
 
 interface GameScreenProps {
@@ -83,7 +85,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
         }))
     }, [gameStateFromEntities.gameOver])
    
-    
+    const wrappedCollisionSystems = createSystemWrapper(CollisionSystem);
     const wrappedPlayerMoveSystems = createSystemWrapper(PlayerMoveSystems);
     const wrappedShootingSytems = createSystemWrapper(ShootingSystem);
     const wrappedBulletMoveSystems = createSystemWrapper(BulletMovementSystem);
@@ -118,7 +120,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
                         wrappedPlayerMoveSystems,wrappedShootingSytems,
                         wrappedBulletMoveSystems,wrappedPlayerAnimationSystems,
                         wrappedBreathAnimationSystems,wrappedPlayerHealthSystems,
-                        wrappedEnemySpawnSystems,wrappedEnemyMoveSystems
+                        wrappedEnemySpawnSystems,wrappedEnemyMoveSystems,wrappedCollisionSystems
                     ]}
                     running={!gameState.paused }
                     onEvent={(event : any) => {
