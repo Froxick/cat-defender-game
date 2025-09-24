@@ -40,6 +40,10 @@ export const localization = {
                     exit: 'Выйти',
                     again: 'Заново'
                 }
+            },
+            gameOver: {
+                title: 'Поражение',
+                button: 'Продолжить'
             }
         }
     },
@@ -80,6 +84,10 @@ export const localization = {
                     exit: 'Exit',
                     again: 'Again'
                 }
+            },
+            gameOver: {
+                title: 'Defeat',
+                button: 'Continue'
             }
         }
     }

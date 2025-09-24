@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router"
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import {  Dimensions, ImageBackground, View } from "react-native"
 import {GameEngine} from 'react-native-game-engine'
 import { GameScreenStyles } from "./GameScreenStyles";
@@ -9,16 +9,8 @@ import { localization } from "@/src/localization/data/localization";
 import { GameHud } from "../GameHud/GameHud";
 import { Entities, GameState, PlayerEntity } from "@/src/types/gameTypes";
 import { setupEntities } from "@/src/utils/setupEntities";
-import { PlayerMoveSystems } from "@/src/systems/PlayerMoveSystems";
-import { ShootingSystem } from "@/src/systems/ShootingSystem";
-import { BulletMovementSystem } from "@/src/systems/BulletMoveSystem";
-import { PlayerAnimationSystem } from "@/src/systems/PlayerAnimationSystem";
-import { BreathAnimationSystem } from "@/src/systems/BreathAnimationSystem";
-
-import { createSystemWrapper } from "@/src/utils/systemWrapper";
-import { PlayerHealthSystem } from "@/src/systems/PlayerHealthSystem";
-import { EnemySpawnSystem } from "@/src/systems/EnemySpawnSystem";
-import { EnemyMoveSystem } from "@/src/systems/EnemyMoveSystem";
+import { getSystemsArr } from "@/src/utils/getSystemsArr";
+import { GameOverMenu } from "../GameOverMenu/GameOverMenu";
 
 
 interface GameScreenProps {
@@ -37,13 +29,16 @@ export const GameScreen = ({params} : GameScreenProps) => {
     const[difficulty,setDifficulty] = useState(parseInt(params.difficulty as string))
     const [entities, setEntities] = useState<Entities>(setupEntities(SCREEN_WIDTH,SCREEN_HEIGHT,difficulty));
     const gameStateFromEntities = entities.gameState as GameState;
-    const gameStatePlayer = entities.player as PlayerEntity
+    const [playerHealth, setPlayerHealth] = useState({
+        health: (entities.player as PlayerEntity).health,
+        maxHealth: (entities.player as PlayerEntity).maxHealth
+    });
     const styles = GameScreenStyles
     const router = useRouter()
     const context = useContext(LocalizationContext)
     const language = context.language
     const textLocal = localization[language].homeMenu.menuModal.buttons
-    
+    const textGameOver = localization[language].gameHud.gameOver
     const diff : Record<number,string> = {
         1: textLocal.easy,
         2: textLocal.medium,
@@ -62,6 +57,11 @@ export const GameScreen = ({params} : GameScreenProps) => {
             gameOver: false
         });
         setGameKey(prev => prev + 1);
+        const player = newEntities.player as PlayerEntity;
+        setPlayerHealth({
+            health: player.health,
+            maxHealth:player.maxHealth
+        })
     }
     const[gameState,setGameState] = useState<gameStateType>({
         paused: false,
@@ -75,26 +75,23 @@ export const GameScreen = ({params} : GameScreenProps) => {
     }
     
 
-   
-    useEffect(() => {
-        setGameState(prev => ({
-            ...prev,
-            gameOver: gameStateFromEntities.gameOver
-        }))
-    }, [gameStateFromEntities.gameOver])
-   
+
     
-    const wrappedPlayerMoveSystems = createSystemWrapper(PlayerMoveSystems);
-    const wrappedShootingSytems = createSystemWrapper(ShootingSystem);
-    const wrappedBulletMoveSystems = createSystemWrapper(BulletMovementSystem);
-    const wrappedPlayerAnimationSystems = createSystemWrapper(PlayerAnimationSystem);
-    const wrappedBreathAnimationSystems = createSystemWrapper(BreathAnimationSystem);
-    const wrappedPlayerHealthSystems = createSystemWrapper(PlayerHealthSystem);
-    const wrappedEnemySpawnSystems = createSystemWrapper(EnemySpawnSystem)
-    const wrappedEnemyMoveSystems = createSystemWrapper(EnemyMoveSystem);
+
+    const systems = getSystemsArr()
     return(
         <>
-            {gameState.paused && (
+            {
+                gameState.gameOver && (
+                    <GameOverMenu 
+                        title={textGameOver.title}
+                        buttonText={textGameOver.button}
+                        onClose={onExit}
+                    
+                    />
+                )
+            }
+            {(gameState.paused === true && gameState.gameOver != true) && (
                 <GameMenu 
                     onRestart={restartGame}
                     visible={gameState.paused}
@@ -114,25 +111,25 @@ export const GameScreen = ({params} : GameScreenProps) => {
                     key={gameKey}
                     ref={gameEngineRef}
                     entities={entities}
-                    systems={[
-                        wrappedPlayerMoveSystems,wrappedShootingSytems,
-                        wrappedBulletMoveSystems,wrappedPlayerAnimationSystems,
-                        wrappedBreathAnimationSystems,wrappedPlayerHealthSystems,
-                        wrappedEnemySpawnSystems,wrappedEnemyMoveSystems
-                    ]}
+                    systems={systems}
                     running={!gameState.paused }
                     onEvent={(event : any) => {
                         if(event.type === 'GAME_OVER') {
+                            setGameStateFnc('paused')
                             setGameStateFnc('gameOver')
+                        }
+                        if(event.type === 'PLAYER_DAMAGE'){
+                            const player = entities.player as PlayerEntity
+                            setPlayerHealth({
+                                health: player.health,
+                                maxHealth: player.maxHealth
+                            })
                         }
                     }}
                 />
                 <GameHud
                     health={
-                        {
-                            maxHealth:gameStatePlayer.maxHealth,
-                            health: gameStatePlayer.health
-                        }
+                       playerHealth
                     }
                     title={diff[difficulty]}
                     difficulty={difficulty}

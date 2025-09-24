@@ -1,17 +1,17 @@
 import { COLORS } from "@/src/themes/Colors";
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 const windowHeight = Dimensions.get('window').height;
 const windowWight = Dimensions.get('window').width
-export const GameMenuStyles = StyleSheet.create({
-
-    modalOverlay: {
+export const GameOverStyles = StyleSheet.create({
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         alignContent:'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
     },
-    modalContainer: {
+    content: {
         width: windowWight * 0.9,
         maxHeight: windowHeight * 0.8,
         minHeight: windowHeight * 0.3,
@@ -34,19 +34,18 @@ export const GameMenuStyles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color:COLORS.HeaderTextColor,
-        textShadowColor: 'rgba(0, 0, 0, 0.1)',
-        textShadowOffset: { width: 2, height: 2 },
-        textShadowRadius: 5,
+            fontSize: 30,
+            fontWeight: 'bold',
+            color:COLORS.HeaderTextColor,
+            textShadowColor: 'rgba(0, 0, 0, 0.1)',
+            textShadowOffset: { width: 2, height: 2 },
+            textShadowRadius: 5,
     },
-    contentContainer: {
-     
+    buttons: {
+        marginTop: 60,
+        justifyContent:'center'
     },
-    buttonsContainer : {
-        flexDirection: 'row',
-        gap: 50,
-        marginTop: 80
+    button:{
+
     }
 })
