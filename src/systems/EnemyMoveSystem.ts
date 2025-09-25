@@ -5,10 +5,6 @@ export const EnemyMoveSystem = (entities: Entities) => {
         if(key.startsWith('enemy_')) {
             const enemy = entities[key] as EnemyEntity
             enemy.position.y += enemy.velocity
-
-            if(enemy.position.y >  entities.gameState.screenHeight ) {
-                delete entities[key];
-            }
         }
     })
     return entities

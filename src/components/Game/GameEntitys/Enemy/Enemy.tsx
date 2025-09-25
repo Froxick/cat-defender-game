@@ -9,7 +9,7 @@ interface EnemyProps {
 const Enemy: React.FC<EnemyProps> = ({ position, size }) => {
   return (
     <Image
-      source={require('@/assets/images/enemy.png')}
+      source={require('@/assets/images/enemyNew.png')}
       resizeMode='contain'
       style={{
         position: 'absolute',

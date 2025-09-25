@@ -78,6 +78,7 @@ export const setupEntities = (SCREEN_WIDTH: number,
                 enemySpeed: enemySetting.enemySpeed,
                 enemySpawnInterval: enemySetting.enemySpawnInterval,
                 points: 0,
+                enemyCount: 0,
             } as GameState
             
         }

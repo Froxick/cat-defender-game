@@ -29,6 +29,7 @@ export const CollisionSystem = (entities: Entities,{dispatch}: CollisionSystemAr
             enemiesToRemove.push(enemyKey);
             bulletsToRemove.push(bulletKey);
             entities.gameState.points += 1;
+            entities.gameState.enemyCount -=1;
             dispatch({type: 'KILL'})
           }
         }

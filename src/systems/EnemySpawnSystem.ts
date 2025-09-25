@@ -4,12 +4,13 @@ const BASE_ENEMY_WIDTH = 60;
 const BASE_ENEMY_HEIGHT = 70; 
 
 let lastSpawnTime = 0;
-
+// let enemyCount = 0;
 export const EnemySpawnSystem = (
   entities: Entities,{time} : {time: Time}
 ) => {
   const gameState = entities.gameState as GameState;
-  if (time.current - lastSpawnTime > gameState.enemySpawnInterval) {
+  
+  if ((time.current - lastSpawnTime > gameState.enemySpawnInterval) && gameState.enemyCount < 6) {
     const enemyId = `enemy_${Date.now()}`; 
     
     const widthVariation = Math.random() * 20 - 10; 
@@ -35,6 +36,7 @@ export const EnemySpawnSystem = (
     } as EnemyEntity;
     
     lastSpawnTime = time.current;
+    gameState.enemyCount += 1;
   }
   return entities
   
