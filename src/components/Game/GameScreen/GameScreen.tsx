@@ -39,7 +39,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
     const styles = GameScreenStyles
     const router = useRouter()
     const context = useContext(LocalizationContext)
-    const {actions} = useStatsStoreSelector()
+    const {actions,state} = useStatsStoreSelector()
     const language = context.language
     const textLocal = localization[language].homeMenu.menuModal.buttons
     const textGameOver = localization[language].gameHud.gameOver
@@ -57,7 +57,9 @@ export const GameScreen = ({params} : GameScreenProps) => {
             2: 'resultMedium',
             3: 'resultHard'
         }
-        actions.setResult(keys[difficulty],points)
+        if(state[keys[difficulty]] < points) {
+            actions.setResult(keys[difficulty],points)
+        }
         router.replace('/')
     }
     const restartGame = () => {
