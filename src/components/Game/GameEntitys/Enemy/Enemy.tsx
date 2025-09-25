@@ -3,13 +3,18 @@ import { Image } from "react-native"
 
 interface EnemyProps {
     position: Position,
-    size: Size
+    size: Size,
+    type: 'default' | 'devil'
+}
+const images = {
+  default: require('@/assets/images/enemyNew.png'),
+  devil: require('@/assets/images/enemyHard.png')
 }
 
-const Enemy: React.FC<EnemyProps> = ({ position, size }) => {
+const Enemy: React.FC<EnemyProps> = ({ position, size, type }) => {
   return (
     <Image
-      source={require('@/assets/images/enemyNew.png')}
+      source={images[type]}
       resizeMode='contain'
       style={{
         position: 'absolute',

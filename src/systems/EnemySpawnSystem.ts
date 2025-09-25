@@ -31,6 +31,7 @@ export const EnemySpawnSystem = (
         width: enemyWidth,
         height: enemyHeight,
       },
+      type: gameState.difficulty != 3 ? 'default' : 'devil',
       renderer: Enemy,
       velocity: gameState.enemySpeed,
     } as EnemyEntity;

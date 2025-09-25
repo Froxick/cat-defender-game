@@ -3,13 +3,16 @@ import { StyleSheet, Text } from "react-native"
 
 interface PointsCounterProps {
     counter: number,
-    text: string
+    text: string,
+    color: 'light' | 'dark'
 }
 
-export const PointsCounter = ({counter,text}: PointsCounterProps) => {
+export const PointsCounter = ({counter,text,
+    color
+}: PointsCounterProps) => {
     const styles = StyleSheet.create({
         text: {
-            color: '#505050ff',
+            color: color === 'dark' ? '#505050ff' : '#d1d1d1ff', 
             fontSize: 15,
             fontWeight: 'bold',
             textAlign: 'center'

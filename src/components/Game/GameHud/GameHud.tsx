@@ -13,7 +13,8 @@ interface GameHudProps {
         health: number
     }
     poitnts: number,
-    pointsText: string
+    pointsText: string,
+    pointsColor: 'light' | 'dark'
 }
 export const GameHud = ({...props} : GameHudProps) => {
     const styles = GameHudStyles
@@ -38,6 +39,7 @@ export const GameHud = ({...props} : GameHudProps) => {
             </View>
             <View style={styles.pointsCounter}>
                 <PointsCounter 
+                    color={props.pointsColor}
                     text={props.pointsText}
                     counter={props.poitnts}
                 />

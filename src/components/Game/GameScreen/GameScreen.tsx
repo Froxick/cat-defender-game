@@ -109,7 +109,11 @@ export const GameScreen = ({params} : GameScreenProps) => {
         }
     }
 
-
+    const backGroundImage = {
+        easy: require('@/assets/images/backFon.jpg'),
+        medium: require('@/assets/images/backFon.jpg'),
+        hard: require('@/assets/images/fonHard.png')
+    }
     
 
     const systems = getSystemsArr()
@@ -139,7 +143,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
                 />
             )}
             <ImageBackground
-                source={require('@/assets/images/backFon.jpg')}
+                source={difficulty === 3 ?  backGroundImage.hard : backGroundImage.easy}
                 resizeMode="cover"
                 style={styles.container}>
                 <View
@@ -156,6 +160,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
                     }}
                 />
                 <GameHud
+                    pointsColor={difficulty === 3 ? 'light' : 'dark'}
                     pointsText={language === 'ru' ? 'Очки' : 'Points'}
                     poitnts={points}
                     health={

@@ -16,6 +16,7 @@ export const ShootingSystem = (entities: Entities,{ time }: { time: Time }) => {
                 y: player.position.y - bulletSize.height
             },
             size: bulletSize,
+            type: entities.gameState.difficulty != 3 ? 'dark' : 'light',
             renderer: Bullet,
             velocity: -8
         } 

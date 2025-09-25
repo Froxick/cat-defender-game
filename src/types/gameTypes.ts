@@ -49,7 +49,8 @@ export interface LineEntity extends Entity {
 export interface BulletEntity extends Entity {
     position: Position,
     size: Size,
-    velocity: number
+    velocity: number,
+    type: 'light' | 'dark'
 }
 export interface Entities {
     [key: string] : Entity,
@@ -76,4 +77,5 @@ export interface EnemyEntity extends Entity {
   velocity: number,
   size: Size,
   position: Position,
+  type: 'default' | 'devil'
 }
