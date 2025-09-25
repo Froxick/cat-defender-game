@@ -14,6 +14,7 @@ import { LevelsSelectWindow } from "../LevelsSelectWindow/LevelsSelectWindow"
 import { LocalizationContext } from "@/src/localization/context/useLocalizationHookContext"
 import { language } from '../../../../localization/context/useLocalizationHookContext';
 import { localization } from "@/src/localization/data/localization"
+import { useStatsStoreSelector } from "@/src/store/useStatsStore"
   export interface IvisibleHomeMenu {
       stats: boolean,
       setting: boolean,
@@ -39,6 +40,7 @@ export const HomeMenu = () => {
     }))
   }
   const context = useContext(LocalizationContext);
+  const {state} = useStatsStoreSelector()
   const language = context.language
   const headerText = localization[context.language].homeMenu.header
   const buttonProps = buttonsProps(navigationTo,setVisibleState,context?.language)
@@ -61,7 +63,7 @@ export const HomeMenu = () => {
           visible={visible.stats}
           onClose={() => setVisibleState('stats')}
         >
-          <StatsWindow language={language}/>
+          <StatsWindow stats={state} language={language}/>
         </MenuModal>
       )
     }

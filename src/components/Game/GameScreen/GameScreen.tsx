@@ -11,6 +11,7 @@ import { Entities, GameState, PlayerEntity } from "@/src/types/gameTypes";
 import { setupEntities } from "@/src/utils/setupEntities";
 import { getSystemsArr } from "@/src/utils/getSystemsArr";
 import { GameOverMenu } from "../GameOverMenu/GameOverMenu";
+import { statsKey, useStatsStoreSelector } from "@/src/store/useStatsStore";
 
 
 interface GameScreenProps {
@@ -22,6 +23,7 @@ interface gameStateType {
     paused: boolean,
     gameOver: boolean
 }
+
 export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 export const GameScreen = ({params} : GameScreenProps) => {
     const [gameKey, setGameKey] = useState(0);
@@ -37,6 +39,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
     const styles = GameScreenStyles
     const router = useRouter()
     const context = useContext(LocalizationContext)
+    const {actions} = useStatsStoreSelector()
     const language = context.language
     const textLocal = localization[language].homeMenu.menuModal.buttons
     const textGameOver = localization[language].gameHud.gameOver
@@ -46,6 +49,15 @@ export const GameScreen = ({params} : GameScreenProps) => {
         3: textLocal.hard
     }
     const onExit = () => {
+        router.replace('/')
+    }
+    const onSaveStats = () => {
+        const keys : Record<number,keyof statsKey> = {
+            1: 'resultEasy',
+            2: 'resultMedium',
+            3: 'resultHard'
+        }
+        actions.setResult(keys[difficulty],points)
         router.replace('/')
     }
     const restartGame = () => {
@@ -108,7 +120,7 @@ export const GameScreen = ({params} : GameScreenProps) => {
                         textPoints={language === 'ru' ? 'Очки' : 'Points'}
                         title={textGameOver.title}
                         buttonText={textGameOver.button}
-                        onClose={onExit}
+                        onClose={onSaveStats}
                     
                     />
                 )
